@@ -36,7 +36,6 @@ Once the Authoring is set up, make sure to link it to the `AuthoringInBetweening
 
 ## How to reproduce the results?
 The complete code that was used for processing, training, and generating the in-between movements is provided in this repository.
-The original motion data is available [here](https://github.com/ubisoft/ubisoft-laforge-animation-dataset).
 To reproduce the model complete the following steps:
 
 1. Open `Assets/Demo/Authoring/MotionCapture/Mocap_LaFan.unity`. <br>
@@ -51,21 +50,18 @@ To reproduce the model complete the following steps:
 10. Hit Play.
 
 ----
-Starting with the raw motion capture data.
+If you decide to start from the raw motion capture and not use the already processed assets in Unity, you will need to download the [LaFAN1](https://github.com/ubisoft/ubisoft-laforge-animation-dataset) dataset and complete the  following steps:
 
-If you decide to start from the raw motion capture and not use the already processed assets in Unity, you will need to download the LaFAN1 dataset and do the following steps:
+1. Import the motion data into Unity by opening the BVH Importer `Header -> AI4Animation -> Importer -> BVH Importer`. Define the path where the original .bvh data is saved on your hard disk, and where the Unity assets should be saved inside the project.
+2. Set Scale to 0.01 and press "Load Directory" and "Import Motion Data".
+3. Create a new scene, add an empty game object and add the MotionEditor component to it.
+4. Copy the path where the imported motion data assets have be saved and click "Import".
+5. In the "Editor Settings" at the bottom, make sure that "Target Framerate" is set to 30Hz.
+6. Open the MotionProcessor window `Header -> AI4Animation -> Tools -> MotionProcessor`, make sure that "LaFAN Pipeline" is selected and click "Process".
+7. Wait for a few hours.
+8. At this point, the raw motion capture data has been automatically processed and is at the same stage as the motion assets provided in this repository. You are ready to continue with the steps above to export the data, train the network and control the character movements.
 
-#1 Import the motion data into Unity by opening the BVH Importer (Header -> AI4Animation -> Importer -> BVH Importer). Define the path where the original .bvh data is saved on your hard disk, and where the Unity assets shall be saved inside the project.
-#2 Set Scale to 0.01 and press "Load Directory" and "Import Motion Data".
-#3 Create a new scene, add an empty game object and add the MotionEditor component to it.
-#4 Copy the path where the imported motion data assets have be saved and click "Import".
-#5 In the "Editor Settings" at the bottom, make sure that "Target Framerate" is set to 30Hz.
-#6 Open the MotionProcessor window (Header -> AI4Animation -> Tools -> MotionProcessor), make sure that "LaFAN Pipeline" is selected and click "Process".
-#7 Wait for a few hours.
-#8 At this point, the raw motion capture data has been automatically processed and is at the same stage as the motion assets provided in this repository. You are ready to continue with the steps above to export the data, train the network and control the character movements.
+The code to train the Periodic Autoencoder and extract the phase parameters for the mocap is available [here](https://github.com/sebastianstarke/AI4Animation/tree/master/AI4Animation/SIGGRAPH_2022/PyTorch).
 
-The code to train the Periodic Autoencoder and extract the phase parameters for the mocap is available here:
-https://github.com/sebastianstarke/AI4Animation/tree/master/AI4Animation/SIGGRAPH_2022/PyTorch
 
-Any questions, feel free to ask. For any issues you might find, please let me know and send me a message to paulstarke.ps@gmail.com or +4917657627917.
 
