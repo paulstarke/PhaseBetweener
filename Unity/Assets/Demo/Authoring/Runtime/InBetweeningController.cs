@@ -738,20 +738,8 @@ public class InBetweeningController : NeuralONNXAnimation
 		float weight = contact;
 		float threshold = 0.5f;
 		if (values.Max() > threshold || (TargetPose.Timestamp - RootTimestamp) <= TargetPose.InitialTimeOffset * 0.1f) weight = 0f;
-/* 		for(int i=0; i<values.Length; i++) {
-			if(values[i] > threshold) {
-				weight = 0f;
-				break;
-			}
-			//weight -= values[i];
-		} */
-
-		//Debug.Log(weight);
 		ik.Activation = UltimateIK.ACTIVATION.Constant;
 		ik.Objectives.First().SetTarget(Vector3.Lerp(ik.Objectives[0].TargetPosition, ik.Joints.Last().Transform.position, 1f - weight));
-
-		//ik.Objectives.First().SetTarget(Quaternion.Slerp(ik.Objectives[0].TargetRotation, ik.Bones.Last().Transform.rotation, 1f-contact));
-
 		ik.Objectives.First().SetTarget(ik.Joints.Last().Transform.rotation);
 
 		ik.Iterations = 50;
@@ -762,14 +750,8 @@ public class InBetweeningController : NeuralONNXAnimation
 		if(!Postprocessing) {
 			return;
 		}
-		//Debug.Log(weight);
 		ik.Activation = UltimateIK.ACTIVATION.Linear;
 		ik.Objectives.First().SetTarget(Vector3.Lerp(ik.Objectives[0].TargetPosition, ik.Joints.Last().Transform.position, 1f - contact));
-
-		//ik.Objectives.First().SetTarget(Quaternion.Slerp(ik.Objectives[0].TargetRotation, ik.Bones.Last().Transform.rotation, 1f-contact));
-		//ik.Objectives.First().SetTarget(Vector3.Lerp(ik.Joints.Last().Transform.position, DribbleSeries.BallTransformations[TimeSeries.Pivot].GetPosition(), contact));
- 
-
 		ik.Objectives.First().SetTarget(ik.Joints.Last().Transform.rotation);
 
 		ik.Iterations = 50;
@@ -908,7 +890,6 @@ public class InBetweeningController : NeuralONNXAnimation
 		//Unity.Barracuda.Tensor w0Tensor = NeuralNetwork.GetOutput("W0");
 		if (DrawNetworkSpace)
 		{
-			// durchschnittlich kann das netzwerk mehr von der aktuellen pose lernen (wird um jedes frame erweitert)
 			Unity.Barracuda.Tensor t = new Unity.Barracuda.Tensor(0, 0);
 			if (DrawFirstLayer)
 			{
