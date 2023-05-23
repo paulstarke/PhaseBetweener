@@ -11,9 +11,9 @@ Unity/Logs
 Unity/Packages
 
 #Unity/Assets/Demo/Authoring/Model/*
+Unity/Assets/Demo/Authoring/MotionCapture/
 Unity/Assets/Resources/Models/GermanShepherdDog/
 Unity/Assets/AssetsStore/
-Unity/Assets/Demo/Authoring/MotionCapture/
 DeepLearningONNX/dataset/
 DeepLearningONNX/Models/*/Training/
 
