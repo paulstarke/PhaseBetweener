@@ -23,7 +23,13 @@ This work introduces a novel data-driven motion in-betweening system to reach ta
 <a href="Unity/">Code, Demo & Tool</a>
 -
 <a href="Unity/README.md">ReadMe</a>
--
+
+<p align="center">
+    <a href="https://youtu.be/MbS1YcKhyyA">
+    <img src="Media/Thumbnail.png">
+    </a>
+</p>
+
 </p>
 <p align="center">
 <img src ="Media/AuthoringTool.png" width="60%" height="30%">
