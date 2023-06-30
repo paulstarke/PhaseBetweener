@@ -4,7 +4,8 @@
 <a href="https://www.linkedin.com/in/paul-starke-0787211b4/">Paul Starke</a>, 
 <a href="https://www.linkedin.com/in/sebastian-starke-b281a6148/">Sebastian Starke</a>, 
 <a href="https://www.linkedin.com/in/taku-komura-571b32b/">Taku Komura</a>, 
-<a href="https://www.linkedin.com/in/frank-steinicke-b239639/">Frank Steinicke</a>
+<a href="https://www.linkedin.com/in/frank-steinicke-b239639/">Frank Steinicke</a>,
+Proc. ACM Comput. Graph. Interact. Tech. 6, 2, Article 1.
 <sub>
 ------------
 <img src ="Media/Teaser.png" width="100%">
@@ -17,7 +18,7 @@ This work introduces a novel data-driven motion in-betweening system to reach ta
 -
 <a href="https://youtu.be/MbS1YcKhyyA">Video</a>
 -
-Paper
+Paper (coming soon)
 -
 <a href="Unity/">Code, Demo & Tool</a>
 -
@@ -36,4 +37,4 @@ Paper
 
 Copyright Information
 ============
-This project is only for research or education purposes, and not freely available for commercial use or redistribution. The motion capture data is available only under the terms of the [Attribution-NonCommercial 4.0 International](https://creativecommons.org/licenses/by-nc/4.0/legalcode) (CC BY-NC 4.0) license.
+This project is only for research or education purposes, and not freely available for commercial use or redistribution. The motion capture data and 3D character model from [ubisoft-laforge](https://github.com/ubisoft/ubisoft-laforge-animation-dataset) is available only under the terms of the [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International Public License](https://github.com/ubisoft/ubisoft-laforge-animation-dataset/blob/master/license.txt).
