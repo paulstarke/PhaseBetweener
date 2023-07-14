@@ -66,17 +66,13 @@ namespace AnimationAuthoring
 				}
 		}
 
-/* 		private List<float> PEValues;
-		private List<float> REValues;
-		private List<float> DeviationValues; */
 		protected override void Setup()
 		{	
-/* 			PEValues = new List<float>();
-        	REValues = new List<float>();
-			DeviationValues = new List<float>(); */
-
 			if(Authoring == null) {
 				Debug.LogWarning("Animation Authoring is not linked to " + name);
+			}
+			if(NeuralNetwork == null) {
+				Debug.LogWarning("Neural Network is not linked in " + name);
 			}
 			for(int i = 0; i < Path.ControlPoints.Count; i++) {
 				if(!Path.ControlPoints[i].HasModule<IKModule>()) {
@@ -220,27 +216,6 @@ namespace AnimationAuthoring
 			Path.GetControlPoint(RootTimestamp, 1).GetModule<IKModule>().VisualizeTargetPose = true;
 			Path.GetControlPoint(RootTimestamp, 1).GetModule<IKModule>().ApplyCharacter();
 
-			//EVALUTION
-/* 			if(RootTimestamp % Path.TimeInterval == 0) {
-			float PEvalue = 0f;
-        	float REvalue = 0f;
-			for(int j=0; j<Actor.Bones.Length; j++) {
-				Matrix4x4 transformation = Actor.Bones[j].GetTransform().GetWorldMatrix();
-				Matrix4x4 target = InputPose.Transformations[j];
-				PEvalue += Vector3.Distance(transformation.GetPosition(), target.GetPosition());
-				REvalue += Quaternion.Angle(transformation.GetRotation(), target.GetRotation());
-				//L2Qvalue += Quaternion.Angle(transformation.GetRotation(), transformationGT.GetRotation());
-				//L2Qvalue += Mathf.Abs(Quaternion.Dot(transformation.GetRotation(), transformationGT.GetRotation()));
-			}
-			PEvalue /= Actor.Bones.Length;
-			REvalue /= Actor.Bones.Length;
-			//L2Pvalue *= Framerate;
-
-			PEValues.Add(PEvalue);
-			REValues.Add(REvalue);
-			} */
-
-
 			IKModule ikModule = NextCP.GetModule<IKModule>();
 			InputPose = new InputPoseData(ikModule.TargetPoseTransformations, ikModule.GetTargetRoot(), ikModule.TargetPoseVelocities);
 			if(LerpInputPose)
@@ -309,9 +284,9 @@ namespace AnimationAuthoring
 
 		protected override void Feed()
 		{
-			//control motion editor, load next frame
 			Control();
 
+			if(NeuralNetwork == null) { return; }
 			//Get Root
 			Matrix4x4 root = Actor.GetRoot().GetWorldMatrix();
 
@@ -381,6 +356,8 @@ namespace AnimationAuthoring
 
 		protected override void Read()
 		{
+			if(NeuralNetwork == null) { return; }
+
 			//Update Past States
 			ContactSeries.Increment(0, TimeSeries.Pivot);
 			if(PhaseSelection == PHASES.LocalPhases) PhaseSeries.Increment(0, TimeSeries.Pivot);
@@ -450,9 +427,9 @@ namespace AnimationAuthoring
 			loopIndex = 0;
 			
 			
-			for (int i = TimeSeries.PivotKey + 1; i < TimeSeries.KeyCount; i++) // 7,8,...,12
+			for (int i = TimeSeries.PivotKey + 1; i < TimeSeries.KeyCount; i++) 
 			{
-				int index = TimeSeries.GetKey(i).Index; //50, 55, 60
+				int index = TimeSeries.GetKey(i).Index;
 
 				Vector3 targetPosition = NeuralNetwork.ReadXZ().GetRelativePositionFrom(currentTargetRoot);
 				Vector3 targetDirection = NeuralNetwork.ReadXZ().normalized.GetRelativeDirectionFrom(currentTargetRoot);
@@ -620,7 +597,6 @@ namespace AnimationAuthoring
                 return;
             }
 			float weight = contact;
-			//if (values.Max() > threshold) weight = 0f;
 			
 			ik.Activation = UltimateIK.ACTIVATION.Constant;
 			ik.Objectives.First().SetTarget(Vector3.Lerp(ik.Objectives[0].TargetPosition, ik.Joints.Last().Transform.position, 1f - weight));

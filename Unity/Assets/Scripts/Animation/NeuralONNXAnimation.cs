@@ -38,7 +38,6 @@ public abstract class NeuralONNXAnimation : MonoBehaviour {
 	public virtual void  Update() {
 		System.DateTime t = Utility.GetTimestamp();
 		Utility.SetFPS(Mathf.RoundToInt(Framerate));
-		if(Time.time < 1f) return;
 		if(NeuralNetwork != null) {
 			Feed();
 			//Run the inference.
