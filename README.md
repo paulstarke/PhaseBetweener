@@ -1,10 +1,11 @@
-**ACM SIGGRAPH / EURGRAPHICS SYMPOSIUM ON COMPUTER ANIMATION 2023**<br />
+**Symposium on Computer Animation (SCA) 2023**<br >
 **Motion In-Betweening with Phase Manifolds**<br >
 <sub>
 <a href="https://www.linkedin.com/in/paul-starke-0787211b4/">Paul Starke</a>, 
 <a href="https://www.linkedin.com/in/sebastian-starke-b281a6148/">Sebastian Starke</a>, 
 <a href="https://www.linkedin.com/in/taku-komura-571b32b/">Taku Komura</a>, 
 <a href="https://www.linkedin.com/in/frank-steinicke-b239639/">Frank Steinicke</a>,
+Proc. ACM Comput. Graph. Interact. Tech. 6, 2, Article 1.
 <sub>
 ------------
 <img src ="Media/Teaser.png" width="100%">
