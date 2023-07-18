@@ -71,7 +71,7 @@ namespace AnimationAuthoring
 			if(Authoring == null) {
 				Debug.LogWarning("Animation Authoring is not linked to " + name);
 			}
-			if(NeuralNetwork == null) {
+			if(NeuralNetwork.Model == null) {
 				Debug.LogWarning("Neural Network is not linked in " + name);
 			}
 			for(int i = 0; i < Path.ControlPoints.Count; i++) {
@@ -286,7 +286,7 @@ namespace AnimationAuthoring
 		{
 			Control();
 
-			if(NeuralNetwork == null) { return; }
+			if(NeuralNetwork.Model == null) { return; }
 			//Get Root
 			Matrix4x4 root = Actor.GetRoot().GetWorldMatrix();
 
@@ -356,7 +356,7 @@ namespace AnimationAuthoring
 
 		protected override void Read()
 		{
-			if(NeuralNetwork == null) { return; }
+			if(NeuralNetwork.Model == null) { return; }
 
 			//Update Past States
 			ContactSeries.Increment(0, TimeSeries.Pivot);

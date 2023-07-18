@@ -5,9 +5,15 @@ Any questions, feel free to ask. For any issues you might find, please let me kn
 
 ## Getting Started
 
-1. Download the learned phases and processed [Assets](https://starke-consult.de/PhaseBetweener/MotionCapture.zip) of the LaFan1 motion capture dataset.
+1. Clone this repository.
 
-2. Extract  `MotionCapture.zip`  to `Assets/Demo/Authoring` folder.
+2. Download the learned phases and processed [Assets](https://starke-consult.de/PhaseBetweener/MotionCapture.zip) of the LaFan1 motion capture dataset.
+
+3. Extract  `MotionCapture.zip`  to `Assets/Demo/Authoring` folder.
+
+4. Download the trained [Models](https://starke-consult.de/PhaseBetweener/Model.zip).
+
+5. Extract  `Model.zip`  to `Assets/Demo/Authoring` folder.
 
 ## How to play the demos?
 We provide two demo scenes in `Assets/Demo/Authoring`. Open them in Unity and hit play - the system should run automatically.

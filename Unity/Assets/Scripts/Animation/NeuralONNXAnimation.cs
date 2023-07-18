@@ -38,7 +38,7 @@ public abstract class NeuralONNXAnimation : MonoBehaviour {
 	public virtual void  Update() {
 		System.DateTime t = Utility.GetTimestamp();
 		Utility.SetFPS(Mathf.RoundToInt(Framerate));
-		if(NeuralNetwork != null) {
+		if(NeuralNetwork.Model != null) {
 			Feed();
 			//Run the inference.
             NeuralNetwork.RunSession();
@@ -48,13 +48,13 @@ public abstract class NeuralONNXAnimation : MonoBehaviour {
 	}
 
     void OnGUI() {
-		if(NeuralNetwork != null) {
+		if(NeuralNetwork.Model != null) {
 			OnGUIDerived();
 		}
     }
 
 	void OnRenderObject() {
-		if(NeuralNetwork != null && Application.isPlaying) {
+		if(NeuralNetwork.Model != null && Application.isPlaying) {
 			OnRenderObjectDerived();
 		}
 	}

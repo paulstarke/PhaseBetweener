@@ -9,7 +9,7 @@ Unity/PATCH/
 Unity/UIElementsSchema
 Unity/Logs
 
-#Unity/Assets/Demo/Authoring/Model/*
+Unity/Assets/Demo/Authoring/Model/*
 Unity/Assets/Demo/Authoring/MotionCapture/
 Unity/Assets/AssetsStore/
 DeepLearningONNX/dataset/

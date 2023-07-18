@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UltimateIK;
 using System;
 using Unity.Barracuda;
+using UnityEditor;
 
 public class InBetweeningController : NeuralONNXAnimation
 {
@@ -88,6 +89,10 @@ public class InBetweeningController : NeuralONNXAnimation
 
 	protected override void Setup()
 	{	
+		if(Asset == null || Asset.GetModule<RootModule>() == null || NeuralNetwork.Model == null) {
+			Debug.Log("No MotionAsset or Neural Network linked in the inspector of " + this.name);
+			EditorApplication.ExitPlaymode();
+		}
 		TimeSeries = new TimeSeries(6, 6, 1f, 1f, 5);
 		SampleSeries = new TimeSeries(6, 6, 1f, 1f, 1);
 		RootSeries = new RootSeries(TimeSeries, transform);
