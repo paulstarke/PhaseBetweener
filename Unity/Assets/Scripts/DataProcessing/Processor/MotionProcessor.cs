@@ -272,7 +272,7 @@ public class MotionProcessor : EditorWindow {
 						data.MirrorAxis = Axis.ZPositive;
 
 						{
-							ContactModule contact = data.AddModule<ContactModule>();
+							ContactModule contact = data.HasModule<ContactModule>() ? data.GetModule<ContactModule>() : data.AddModule<ContactModule>();
 							contact.Clear();
 							contact.AddSensor("Hips", "Hips", Vector3.zero, 0.15f, 1f, LayerMask.GetMask("Ground"));
 							contact.AddSensor("LeftHand", "LeftHand", Vector3.zero, 0.15f, 1f, LayerMask.GetMask("Ground"));
@@ -284,7 +284,7 @@ public class MotionProcessor : EditorWindow {
 						}  
 
  						{
-							RootModule root = data.AddModule<RootModule>();
+							RootModule root = data.HasModule<RootModule>() ? data.GetModule<RootModule>() : data.AddModule<RootModule>();
 							root.Topology = RootModule.TOPOLOGY.Biped;
 							root.RightShoulder = data.Source.FindBone("RightArm").Index;
 							root.LeftShoulder = data.Source.FindBone("LeftArm").Index;
@@ -293,7 +293,7 @@ public class MotionProcessor : EditorWindow {
 						} 
 
  						{
-							StyleModule style = data.GetModule<StyleModule>();
+							StyleModule style = data.HasModule<StyleModule>() ? data.GetModule<StyleModule>() : data.AddModule<StyleModule>();
 							RootModule root = data.GetModule<RootModule>();
 							style.Clear();
 							//StyleModule.StyleFunction idling = style.AddStyle("Idle");
@@ -408,7 +408,7 @@ public class MotionProcessor : EditorWindow {
 						} 
 						
 						{
-							InBetweeningModule betweening = data.GetModule<InBetweeningModule>();
+							InBetweeningModule betweening = data.HasModule<InBetweeningModule>() ? data.GetModule<InBetweeningModule>() : data.AddModule<InBetweeningModule>();
 							betweening.ChannelCount = 5;
 							
 							//Import Deep Phases
@@ -432,9 +432,9 @@ public class MotionProcessor : EditorWindow {
 						}
 						
 						{
-							PhaseModule phase = data.AddModule<PhaseModule>();
-							phase.Inspect = true;
-							RootModule root = data.GetModule<RootModule>();
+							PhaseModule phase = data.HasModule<PhaseModule>() ? data.GetModule<PhaseModule>() : data.AddModule<PhaseModule>();
+							phase.Visualize = false;
+							phase.Inspect = false;
 							ContactModule contact = data.GetModule<ContactModule>();
 							phase.SetFunctions(contact.GetNames());
 							phase.ShowNormalized = true;

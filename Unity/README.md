@@ -58,14 +58,15 @@ To reproduce the model complete the following steps:
 ----
 If you decide to start from the raw motion capture and not use the already processed assets in Unity, you will need to download the [LaFAN1](https://github.com/ubisoft/ubisoft-laforge-animation-dataset) dataset and complete the  following steps:
 
-1. Import the motion data into Unity by opening the BVH Importer `Header -> AI4Animation -> Importer -> BVH Importer`. Define the path where the original .bvh data is saved on your hard disk, and where the Unity assets should be saved inside the project.
-2. Set Scale to 0.01 and press "Load Directory" and "Import Motion Data".
-3. Create a new scene, add an empty game object and add the MotionEditor component to it.
-4. Copy the path where the imported motion data assets have be saved and click "Import".
-5. In the "Editor Settings" at the bottom, make sure that "Target Framerate" is set to 30Hz.
-6. Open the MotionProcessor window `Header -> AI4Animation -> Tools -> MotionProcessor`, make sure that "LaFAN Pipeline" is selected and click "Process".
-7. Wait for a few hours.
-8. At this point, the raw motion capture data has been automatically processed and is at the same stage as the motion assets provided in this repository. You are ready to continue with the steps above to export the data, train the network and control the character movements.
+1. Open `MocapExample.unity` in the Demo folder.
+2. Import the motion data into Unity by opening the BVH Importer `Header -> AI4Animation -> Importer -> BVH Importer`. Define the path where the original .bvh data is saved on your hard disk, and where the Unity assets should be saved inside the project.
+3. Set Scale to 0.01, check `Flip` on `XPositive axis` and press "Load Directory" and "Import Motion Data". Wait until the motion data is imported.
+4. In the scene `MocapExample.unity` go to the MotionEditor component.
+5. Input the path where the imported motion data assets have been saved and click "Import".
+6. In the "Editor Settings" at the bottom, make sure that "Target Framerate" is set to 30Hz and "Character" is linked with LaFan's prefabs `Actor.cs` component.
+7. Open the MotionProcessor window `Header -> AI4Animation -> Tools -> MotionProcessor`, make sure that "LaFAN Pipeline" is selected and click "Process".
+8. Wait for a few hours.
+9. At this point, the raw motion capture data has been successfully processed and is at the same stage as the motion assets provided in this repository. You are ready to continue with the steps above to export the data, train the network and control the character movements.
 
 The code to train the Periodic Autoencoder and extract the phase parameters for the mocap is available [here](https://github.com/sebastianstarke/AI4Animation/tree/master/AI4Animation/SIGGRAPH_2022/PyTorch).
 

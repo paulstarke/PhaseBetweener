@@ -1,10 +1,8 @@
 ﻿
 using UnityEngine;
 using UnityEngine.SceneManagement;
-#if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.SceneManagement;
-#endif
 using System;
 using System.IO;
 using System.Collections.Generic;
@@ -30,22 +28,16 @@ public class MotionData : ScriptableObject {
 	
 	
 	public void MarkDirty(bool asset=true, bool scene=true) {
-		#if UNITY_EDITOR
 		if(asset) {
 			EditorUtility.SetDirty(this);
 		}
 		if(scene) {
 			EditorSceneManager.MarkSceneDirty(GetScene());
 		}
-		#endif
 	}
 
 	public bool IsDirty() {
-		#if UNITY_EDITOR
 		return EditorUtility.IsDirty(this) || GetScene().isDirty;
-		#else
-		return false;
-		#endif
 	}
 
 	public void SetPrecomputable(bool value) {
@@ -328,11 +320,7 @@ public class MotionData : ScriptableObject {
 	}
 
 	public string GetDirectoryPath() {
-		#if UNITY_EDITOR
 		return Path.GetDirectoryName(AssetDatabase.GetAssetPath(this));
-		#else
-		return "";
-		#endif
 	}
 
 	public string GetScenePath() {
@@ -340,7 +328,6 @@ public class MotionData : ScriptableObject {
 	}
 	
 	public Scene GetScene() {
-		#if UNITY_EDITOR
 		for(int i=0; i<SceneManager.sceneCount; i++) {
 			Scene scene = SceneManager.GetSceneAt(i);
 			if(scene.name == name) {
@@ -377,11 +364,9 @@ public class MotionData : ScriptableObject {
 		}
 		
 		return SceneManager.GetSceneByName(name);
-		#else
-		return new Scene();
-		#endif
+
 		bool VerifyScene() {
-			#if UNITY_EDITOR
+
 			string[] assets = AssetDatabase.FindAssets("t:Scene", new string[1]{GetDirectoryPath()});
 			if(assets.Length == 0) {
 				return false;
@@ -390,14 +375,11 @@ public class MotionData : ScriptableObject {
 			string id = path.Substring(path.LastIndexOf("/")+1);
 			id = id.Substring(0, id.LastIndexOf("."));
 			return name == id;
-			#else
-			return false;
-			#endif
+
 		}
 	}
 
 	public void CreateScene() {
-		#if UNITY_EDITOR
 		UnityEngine.SceneManagement.Scene active = EditorSceneManager.GetActiveScene();
 		UnityEngine.SceneManagement.Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Additive);
 		EditorSceneManager.SetActiveScene(scene);
@@ -406,7 +388,6 @@ public class MotionData : ScriptableObject {
 		EditorSceneManager.SetActiveScene(active);
 		EditorSceneManager.SaveScene(scene, GetScenePath());
 		EditorSceneManager.CloseScene(scene, true);
-		#endif
 	}
 
 	public Actor CreateActor() {
@@ -434,9 +415,7 @@ public class MotionData : ScriptableObject {
 			Debug.Log("Module of class type " + id + " could not be loaded in " + GetName() + ".");
 		} else {
 			ArrayExtensions.Append(ref Modules, module.Initialize(this));
-			#if UNITY_EDITOR
 			AssetDatabase.AddObjectToAsset(Modules.Last(), this);
-			#endif
 		}
 		return module;
 	}
@@ -568,7 +547,6 @@ public class MotionData : ScriptableObject {
 			Symmetry[source] = target;
 		}
 	}
-	#if UNITY_EDITOR
 	public void Inspector(MotionEditor editor) {
 		Frame frame = editor.GetCurrentFrame();
 
@@ -678,7 +656,6 @@ public class MotionData : ScriptableObject {
 			MarkDirty();
 		}
 	}
-	#endif
 
 	public void Callback(MotionEditor editor) {
 		foreach(Module m in Modules) {

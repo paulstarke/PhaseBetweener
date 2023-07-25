@@ -1,5 +1,4 @@
-﻿#if UNITY_EDITOR
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 using System.IO;
 using System.Collections;
@@ -364,6 +363,4 @@ public class BVHImporter : EditorWindow {
 		}
 		yield return new WaitForSeconds(0f);
 	}
-
 }
-#endif
