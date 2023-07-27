@@ -12,7 +12,7 @@ from torch.nn.parameter import Parameter
 import torch.nn.functional as F
 
 if __name__ == '__main__':
-    load = "../../dataset/LaFAN1_NoObstacle_DeepPhases_Styles"
+    load = "../../../DeepLearningONNX"
     save = "./Training"
 
     InputFile = load + "/Input.txt"
