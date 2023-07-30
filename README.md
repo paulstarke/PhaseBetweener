@@ -9,9 +9,8 @@
 ------------
 <img src ="Media/Teaser.png" width="100%">
 
-<p align="center">
+### Abstract
 This work introduces a novel data-driven motion in-betweening system to reach target poses of characters by making use of phases variables learned by a Periodic Autoencoder. The approach utilizes a mixture-of-experts neural network model, in which the phases cluster movements in both space and time with different expert weights. Each generated set of weights then produces a sequence of poses in an autoregressive manner between the current and target state of the character. In addition, to satisfy poses which are manually modified by the animators or where certain end effectors serve as constraints to be reached by the animation, a learned bi-directional control scheme is implemented to satisfy such constraints. Using phases for motion in-betweening tasks sharpen the interpolated movements, and furthermore stabilizes the learning process. Moreover, more challenging movements beyond locomotion behaviors can be synthesized. Additionally, style control is enabled between given target keyframes. The framework can compete with state-of-the-art methods for motion in-betweening in terms of motion quality and generalization, especially in the existence of long transition durations. This framework contributes to faster prototyping workflows for creating animated character sequences, which is of enormous interest for the game and film industry.
-</p>
 
 <p align="center">
 -
