@@ -13,6 +13,9 @@ public class MotionExporter : EditorWindow {
 
 	public enum PIPELINE {MotionInBetweening};
 	public enum PHASES {NoPhases, LocalPhases, DeepPhases};
+	public enum CHARACTER {LaFAN, Dog};
+	public bool ExportStyleLabels = false;
+
 	[Serializable]
 	public class Asset {
 		public string GUID = string.Empty;
@@ -25,6 +28,7 @@ public class MotionExporter : EditorWindow {
 
 	public PIPELINE Pipeline = PIPELINE.MotionInBetweening; 
 	public PHASES PhaseSelection = PHASES.DeepPhases;
+	public CHARACTER Character = CHARACTER.LaFAN;
 	public int FrameShifts = 0;
 	public int FrameBuffer = 30;
 	public bool WriteMirror = true;
@@ -155,6 +159,8 @@ public class MotionExporter : EditorWindow {
 				FrameBuffer = Mathf.Max(1, EditorGUILayout.IntField("Frame Buffer", FrameBuffer));
 				WriteMirror = EditorGUILayout.Toggle("Write Mirror", WriteMirror);
 				PhaseSelection = (PHASES)EditorGUILayout.EnumPopup("Phases", PhaseSelection);
+				Character = (CHARACTER)EditorGUILayout.EnumPopup("Character", Character);
+				ExportStyleLabels = EditorGUILayout.Toggle("Export Style Labels", ExportStyleLabels);
 
 				if(!Exporting) {
 					if(Utility.GUIButton("Export Data", UltiDraw.DarkGrey, UltiDraw.White)) {
@@ -537,9 +543,19 @@ public class MotionExporter : EditorWindow {
 				Debug.LogError("Same frames for input output pairs selected!");
 			}
 
-			string[] contacts = new string[] { "Hips", "LeftHand", "RightHand", "LeftFoot", "RightFoot" };
-			//string[] contacts = new string[] { "LeftHandSite", "RightHandSite", "LeftFootSite", "RightFootSite" }; Dog
-			string[] styles = new string[]{"Move", "Aiming", "Crouching"};
+			string[] contacts = new string[0];
+			if(exporter.Character == CHARACTER.LaFAN){
+				contacts = new string[] { "Hips", "LeftHand", "RightHand", "LeftFoot", "RightFoot" };
+			}
+			if(exporter.Character == CHARACTER.Dog){
+				contacts = new string[] { "LeftHandSite", "RightHandSite", "LeftFootSite", "RightFootSite" };
+			}
+
+			string[] styles = new string[0];
+			if(exporter.ExportStyleLabels) {
+				styles = new string[] {"Move", "Aiming", "Crouching"};
+			}
+			
 			//Input
 			//Control
 			//Resolution = 1
@@ -549,7 +565,8 @@ public class MotionExporter : EditorWindow {
 				X.FeedXZ(next.RootSeries.GetDirection(k).GetRelativeDirectionTo(current.TargetRoot), "TrajectoryDirection" + (k + 1));
 				X.FeedXZ(next.RootSeries.GetVelocity(k).GetRelativeDirectionTo(current.TargetRoot), "TrajectoryVelocity" + (k + 1));
 				X.Feed(current.TargetPose.TimeOffset - current.TimeSeries.Samples[k].Timestamp, "TimeOffset" + (k + 1)); 
-				X.Feed(next.StyleSeries.GetStyles(k, styles), "Style"+(k+1)+"-");
+				if(exporter.ExportStyleLabels) 
+					X.Feed(next.StyleSeries.GetStyles(k, styles), "Style"+(k+1));
 				/*
                 X.Feed(next.RootSeries.Lengths[k], "TrajectoryLength"+(k+1));
                 X.Feed(next.RootSeries.Arcs[k], "TrajectoryArc"+(k+1)); */
@@ -634,7 +651,8 @@ public class MotionExporter : EditorWindow {
 			Y.FeedXZ(next.RootSeries.Velocities[next.TimeSeries.Pivot].GetRelativeDirectionTo(current.TargetRoot), "TargetRootVelocity");
 			
 			//RootStyle
-			//Y.Feed(next.StyleSeries.GetStyles(next.TimeSeries.Pivot, styles), "RootStyle");
+			if(exporter.ExportStyleLabels)
+				Y.Feed(next.StyleSeries.GetStyles(next.TimeSeries.Pivot, styles), "RootStyle");
 
 			// Future Trajectory
 			// Root Space
@@ -652,7 +670,8 @@ public class MotionExporter : EditorWindow {
 				Y.FeedXZ(next.RootSeries.GetVelocity(k).GetRelativeDirectionTo(current.TargetRoot), "TargetTrajectoryVelocity" + (k + 1));
 				
 				//Predicted styles in future
-				//Y.Feed(next.StyleSeries.GetStyles(k, styles), "Style"+(k+1)+"-");
+				if(exporter.ExportStyleLabels)
+					Y.Feed(next.StyleSeries.GetStyles(k, styles), "Style"+(k+1));
 			}
 
 /* 			//+ root

@@ -12,6 +12,7 @@ namespace AnimationAuthoring
 		public enum PHASES {NoPhases, LocalPhases, DeepPhases};
 		public Authoring Authoring;
 		public PHASES PhaseSelection = PHASES.DeepPhases;
+		public bool ModelIncludesStyleLabels = false;
 		[Range (0,1)] public float LerpDurationFactor = 0.25f;
 		//[Range (0,0.25f)] public float SampleOffset = 0.1f;
 		[Range (0,1)] public float TrajectoryControl = 0.9f;
@@ -262,24 +263,27 @@ namespace AnimationAuthoring
 				);
 				loopIndex += 1;
 			}
-
-			//Action Values
-/* 			loopIndex = 0;
-			for (int i = TimeSeries.Pivot; i < TimeSeries.Samples.Length; i++)
-			{
-				float timestamp = RootTimestamp + (float)(loopIndex * Path.TimeDelta);
-				Point point = Path.GetPoint(timestamp);
 			
-				for (int j = 0; j < StyleSeries.Styles.Length; j++)
+			if(ModelIncludesStyleLabels) {
+				//Action Values
+				loopIndex = 0;
+				for (int i = TimeSeries.Pivot; i < TimeSeries.Samples.Length; i++)
 				{
-					StyleSeries.Values[i][j] = Mathf.Lerp(
-						StyleSeries.Values[i][j],
-						Path.CalculatePointStyleValue(timestamp, j),
-						TrajectoryControl
-					);
-				}
-				loopIndex += 1;
-			} */
+					float timestamp = RootTimestamp + (float)(loopIndex * Path.TimeDelta);
+					Point point = Path.GetPoint(timestamp);
+				
+					for (int j = 0; j < StyleSeries.Styles.Length; j++)
+					{
+						StyleSeries.Values[i][j] = Mathf.Lerp(
+							StyleSeries.Values[i][j],
+							Path.CalculatePointStyleValue(timestamp, j),
+							TrajectoryControl
+						);
+					}
+					loopIndex += 1;
+				} 
+			}
+
 		}
 
 		protected override void Feed()
@@ -301,7 +305,8 @@ namespace AnimationAuthoring
 				NeuralNetwork.Feed(t);
 				TimeDeltas[i] = t;
 
-				//NeuralNetwork.Feed(StyleSeries.Values[index]);
+				if(ModelIncludesStyleLabels)
+					NeuralNetwork.Feed(StyleSeries.Values[index]);
 			}
 
 			//Input Character
@@ -395,15 +400,17 @@ namespace AnimationAuthoring
 							);
 			RootSeries.Transformations[TimeSeries.Pivot] = root;
 			RootSeries.Velocities[TimeSeries.Pivot] = vel;
-
-/* 			//Read Root Style
-			for(int j=0; j<StyleSeries.Styles.Length; j++) {
-				StyleSeries.Values[TimeSeries.Pivot][j] = Mathf.Lerp(
-					StyleSeries.Values[TimeSeries.Pivot][j], 
-					NeuralNetwork.Read(0f, 1f), 
-					TrajectoryCorrection
-				);
-			} */
+			
+			if(ModelIncludesStyleLabels){
+				//Read Root Style
+				for(int j=0; j<StyleSeries.Styles.Length; j++) {
+					StyleSeries.Values[TimeSeries.Pivot][j] = Mathf.Lerp(
+						StyleSeries.Values[TimeSeries.Pivot][j], 
+						NeuralNetwork.Read(0f, 1f), 
+						TrajectoryCorrection
+					);
+				} 
+			}
 
 			//Read Future States
 			int loopIndex = 0;
@@ -450,10 +457,12 @@ namespace AnimationAuthoring
 				RootSeries.Transformations[index] = Utility.Interpolate(RootSeries.Transformations[index], m, TrajectoryCorrection);
 				RootSeries.Velocities[index] = Vector3.Lerp(RootSeries.Velocities[index], velocity, TrajectoryCorrection);
 				
-/* 				//Styles
-				for(int j=0; j<StyleSeries.Styles.Length; j++) {
-					StyleSeries.Values[index][j] = Mathf.Lerp(StyleSeries.Values[index][j], NeuralNetwork.Read(0f, 1f), TrajectoryCorrection);
-				} */
+				if(ModelIncludesStyleLabels) {
+					//Styles
+					for(int j=0; j<StyleSeries.Styles.Length; j++) {
+						StyleSeries.Values[index][j] = Mathf.Lerp(StyleSeries.Values[index][j], NeuralNetwork.Read(0f, 1f), TrajectoryCorrection);
+					} 
+				}
 				loopIndex++;
 			}
 
