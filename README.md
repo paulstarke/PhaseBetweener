@@ -5,7 +5,8 @@
 <a href="https://www.linkedin.com/in/sebastian-starke-b281a6148/">Sebastian Starke</a>, 
 <a href="https://www.linkedin.com/in/taku-komura-571b32b/">Taku Komura</a>, 
 <a href="https://www.linkedin.com/in/frank-steinicke-b239639/">Frank Steinicke</a>
-<sub>
+<sub><br >
+Proc. ACM Comput. Graph. Interact. Tech. 6, 3, Article 37 (August 2023), 17 pages. https://doi.org/10.1145/3606921
 ------------
 <img src ="Media/Teaser.png" width="100%">
 
