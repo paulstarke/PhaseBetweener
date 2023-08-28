@@ -29,7 +29,7 @@ Visualization options can be turned on/off in the inspector.
 To create sparse keyframes for the character, add the `Authoring.cs` script to any gameobject in your scene. <br>
 
 ### Controls
-- Add/Insert/Delete controlpoints: `<Ctrl> + LeftMouseClick` in Scene View <br>
+- Add/Insert/Delete controlpoints: `<Shift> + LeftMouseClick` in Scene View <br>
 - Select-Mode: `LeftMouseClick` on a controlpoint in the Scene View -> properties of this control point show up in inspector <br>
 - Unselect: `<Esc>` in Scene View <br>
 - Undo: `<Ctrl> + Z` <br>
