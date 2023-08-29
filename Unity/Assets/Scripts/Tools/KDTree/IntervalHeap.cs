@@ -178,7 +178,7 @@ namespace KDTree
         /// Replace the item with the smallest key in the queue.
         /// </summary>
         /// <param name="key">The new minimum key.</param>
-        /// <param name="value">The new minumum data value.</param>
+        /// <param name="value">The new minimum data value.</param>
         public void ReplaceMin(double key, T value)
         {
             // Check for errors.
