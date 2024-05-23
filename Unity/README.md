@@ -7,11 +7,11 @@ Any questions, feel free to ask. For any issues you might find, please let me kn
 
 1. Clone this repository.
 
-2. Download the learned phases and processed [Assets](https://starke-consult.de/PhaseBetweener/MotionCapture.zip) of the LaFan1 motion capture dataset.
+2. Download learned phases and processed [Assets](https://starke-consult.de/PhaseBetweener/MotionCapture.zip) of the LaFan1 motion capture dataset.
 
 3. Extract  `MotionCapture.zip`  to `Assets/Demo/Authoring` folder.
 
-4. Download the trained [Models](https://starke-consult.de/PhaseBetweener/Model.zip).
+4. Download trained [Models](https://starke-consult.de/PhaseBetweener/Model.zip).
 
 5. Extract  `Model.zip`  to `Assets/Demo/Authoring` folder.
 
@@ -29,7 +29,7 @@ Visualization options can be turned on/off in the inspector.
 To create sparse keyframes for the character, add the `Authoring.cs` script to any gameobject in your scene. <br>
 
 ### Controls
-- Add/Insert/Delete controlpoints: `<Ctrl> + LeftMouseClick` in Scene View <br>
+- Add/Insert/Delete controlpoints: `<Shift> + LeftMouseClick` in Scene View <br>
 - Select-Mode: `LeftMouseClick` on a controlpoint in the Scene View -> properties of this control point show up in inspector <br>
 - Unselect: `<Esc>` in Scene View <br>
 - Undo: `<Ctrl> + Z` <br>
